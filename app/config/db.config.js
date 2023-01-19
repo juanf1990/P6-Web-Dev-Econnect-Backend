@@ -1,6 +1,8 @@
+require("dotenv").config();
+
 module.exports = {
-  DB: `postgresql://postgres:XAZWjGcVozJXBKhlJGr3@containers-us-west-167.railway.app:7525/railway`,
-  dialect: "postgres",
+  DB: process.env.DATABASE_URL,
+  dialect: process.env.DIALECT,
   pool: {
     max: 5,
     min: 0,
