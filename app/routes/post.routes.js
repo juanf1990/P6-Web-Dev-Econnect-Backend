@@ -7,10 +7,7 @@ module.exports = (app) => {
   router.post("/", posts.create);
 
   // Retrieve all Posts
-  router.get("/", posts.findAll);
-
-  // Retrieve all published Posts
-  router.get("/published", posts.findAllPublished);
+  router.get("/all", posts.findAll);
 
   // Retrieve a single Post with id
   router.get("/:id", posts.findOne);
@@ -20,9 +17,6 @@ module.exports = (app) => {
 
   // Delete a Post with id
   router.delete("/:id", posts.delete);
-
-  // Delete all Posts
-  router.delete("/", posts.deleteAll);
 
   app.use("/api/posts", router);
 };
