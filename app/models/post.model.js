@@ -1,5 +1,10 @@
 module.exports = (sequelize, Sequelize) => {
   const Post = sequelize.define("post", {
+    id: {
+      type: Sequelize.UUID,
+      defaultValue: Sequelize.UUIDV4,
+      primaryKey: true,
+    },
     imgUrl: {
       type: Sequelize.STRING,
     },

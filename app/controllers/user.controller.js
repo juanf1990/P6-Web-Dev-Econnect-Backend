@@ -5,9 +5,10 @@ const User = db.users;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new User
-exports.signup = (req, res, next) => {
+exports.signup = (req, res) => {
   bcrypt.hash(req.body.password, 10).then((hash) => {
     const user = new User({
+      username: req.body.username,
       email: req.body.email,
       password: hash,
     });
