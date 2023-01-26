@@ -26,3 +26,21 @@ exports.create = (req, res) => {
       });
     });
 };
+
+// Retrieve all Posts from the database.
+exports.getAllPosts = (req, res) => {
+  const description = req.query.description;
+  var condition = description
+    ? { description: { [Op.like]: `%${description}%` } }
+    : null;
+
+  Post.findAll({ where: condition })
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: err.message || "Some error occurred while retrieving posts.",
+      });
+    });
+};

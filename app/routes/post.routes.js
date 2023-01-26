@@ -8,13 +8,14 @@ module.exports = (app) => {
   const multer = require("../middleware/multer-config");
 
   // Saves an image to the server
-  router.post("/", auth, multer, (req, res) => {
+  router.post("/", auth, multer, (req, res, next) => {
     posts.create(req, res);
+    next();
   });
 
   // Retrieves all posts
   router.get("/", auth, (req, res) => {
-    posts.findAll(req, res);
+    posts.getAllPosts(req, res);
   });
 
   app.use("/api/posts", router);
