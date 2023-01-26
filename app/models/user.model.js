@@ -7,6 +7,7 @@ module.exports = (sequelize, Sequelize) => {
     },
     username: {
       type: Sequelize.STRING,
+      foreignKey: true,
     },
     email: {
       type: Sequelize.STRING,

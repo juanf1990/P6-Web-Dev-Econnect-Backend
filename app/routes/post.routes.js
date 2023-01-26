@@ -3,20 +3,19 @@ module.exports = (app) => {
 
   var router = require("express").Router();
 
-  // Create a new Post
-  router.post("/", posts.create);
+  const auth = require("../middleware/auth");
 
-  // Retrieve all Posts
-  router.get("/all", posts.findAll);
+  const multer = require("../middleware/multer-config");
 
-  // Retrieve a single Post with id
-  router.get("/:id", posts.findOne);
+  // Saves an image to the server
+  router.post("/", auth, multer, (req, res) => {
+    posts.create(req, res);
+  });
 
-  // Update a Post with id
-  router.put("/:id", posts.update);
-
-  // Delete a Post with id
-  router.delete("/:id", posts.delete);
+  // Retrieves all posts
+  router.get("/", auth, (req, res) => {
+    posts.findAll(req, res);
+  });
 
   app.use("/api/posts", router);
 };

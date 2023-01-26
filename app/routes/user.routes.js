@@ -9,6 +9,9 @@ module.exports = (app) => {
   // Login a User
   router.post("/login", users.login);
 
+  // Logout a User
+  router.post("/logout", users.logout);
+
   // Delete a User with id
   router.delete("/:id", users.delete);
 

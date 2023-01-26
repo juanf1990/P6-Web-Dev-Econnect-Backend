@@ -7,15 +7,25 @@ module.exports = (sequelize, Sequelize) => {
     },
     imgUrl: {
       type: Sequelize.STRING,
+      required: true,
     },
     description: {
       type: Sequelize.STRING,
+      required: true,
     },
     userId: {
       type: Sequelize.UUID,
+      foreignKey: true,
+      required: true,
+    },
+    username: {
+      type: Sequelize.STRING,
+      foreignKey: true,
+      required: true,
     },
     readBy: {
-      type: Sequelize.ARRAY(Sequelize.UUID),
+      type: Sequelize.BOOLEAN,
+      defaultValue: false,
     },
   });
 
