@@ -7,16 +7,14 @@ module.exports = (app) => {
 
   const multer = require("../middleware/multer-config");
 
-  // Saves an image to the server
+  // Check that the user is authenticated, then adds the file image to the database folder and then adds the post to the database
   router.post("/", auth, multer, (req, res, next) => {
     posts.create(req, res);
     next();
   });
 
-  // Retrieves all posts
-  router.get("/", auth, (req, res) => {
-    posts.getAllPosts(req, res);
-  });
+  // Retrieves all posts from the database
+  router.get("/", posts.getAllPosts);
 
   app.use("/api/posts", router);
 };
