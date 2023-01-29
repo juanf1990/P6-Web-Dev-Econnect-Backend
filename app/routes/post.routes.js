@@ -16,5 +16,14 @@ module.exports = (app) => {
   // Retrieves all posts from the database
   router.get("/", posts.getAllPosts);
 
+  // Marks as read a post with the specified id in the request
+  router.patch("/:id", auth, (req, res) => {
+    posts.markAsRead(req, res);
+  });
+
+  router.delete("/:id", auth, (req, res) => {
+    users.delete(req, res);
+  });
+
   app.use("/api/posts", router);
 };

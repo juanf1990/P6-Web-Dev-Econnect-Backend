@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const db = require("../models");
 const User = db.users;
+const Post = db.posts;
 const Op = db.Sequelize.Op;
 const { validationResult } = require("express-validator");
 
@@ -129,25 +130,48 @@ exports.logout = async (req, res) => {
 
 // Delete a User with the specified id in the request
 exports.delete = (req, res) => {
-  const id = req.params.id;
-
-  User.destroy({
-    where: { id: id },
-  })
-    .then((num) => {
-      if (num == 1) {
-        res.send({
-          message: "User was deleted successfully!",
+  // Find if user exists
+  User.findByPk(req.params.id).then((data) => {
+    // If user exists, check if user is has posts and delete them
+    if (data) {
+      Post.destroy({
+        where: {
+          userId: req.params.id,
+        },
+      })
+        .then((data) => {
+          // If user has posts, delete them
+          if (data) {
+            console.log("Posts deleted successfully!");
+          }
+        })
+        .catch((err) => {
+          res.status(500).send({
+            message: err.message || "Some error occurred while deleting posts.",
+          });
         });
-      } else {
-        res.send({
-          message: `Cannot delete User with id=${id}. Maybe User was not found!`,
+      // Delete user
+      User.destroy({
+        where: {
+          id: req.params.id,
+        },
+      })
+        .then((data) => {
+          if (data == 1) {
+            res.send({
+              message: "User was deleted successfully!",
+            });
+          }
+        })
+        .catch((err) => {
+          res.status(500).send({
+            message: err.message || "Some error occurred while deleting user.",
+          });
         });
-      }
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message: "Could not delete User with id=" + id,
+    } else {
+      res.status(404).send({
+        message: `Cannot delete User with id=${req.params.id}. User not found!`,
       });
-    });
+    }
+  });
 };

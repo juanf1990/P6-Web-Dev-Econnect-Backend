@@ -24,8 +24,8 @@ module.exports = (sequelize, Sequelize) => {
       required: true,
     },
     readBy: {
-      type: Sequelize.BOOLEAN,
-      defaultValue: false,
+      type: Sequelize.ARRAY(Sequelize.STRING),
+      defaultValue: [],
     },
   });
 
