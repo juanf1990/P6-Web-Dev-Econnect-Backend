@@ -11,7 +11,6 @@ exports.create = (req, res) => {
     description: req.body.description,
     userId: req.body.userId,
     username: req.body.username,
-    readBy: req.body.readBy,
   });
 
   // Save Post in the database
@@ -39,26 +38,4 @@ exports.getAllPosts = (req, res) => {
         message: err.message || "Some error occurred while retrieving posts.",
       });
     });
-};
-
-// Includes the userId sent from the Body JSON on the ReadBy column on a post with the specified id in the request
-
-exports.markAsRead = async (req, res) => {
-  try {
-    const post = await Post.findByPk(req.params.id);
-    if (!post)
-      return res.status(404).send("The post with the given ID was not found.");
-    const readBy = post.readBy;
-    if (post.readBy.includes(req.body.readBy)) {
-      return res.status(400).send("You have already read this post");
-    } else {
-      readBy.push(req.body.readBy);
-    }
-    await post.update({ readBy: readBy });
-    await post.save();
-    res.status(200).send(post);
-  } catch (error) {
-    console.log(error.message);
-    res.status(500).send("Server Error");
-  }
 };

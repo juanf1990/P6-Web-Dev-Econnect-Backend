@@ -23,10 +23,6 @@ module.exports = (sequelize, Sequelize) => {
       foreignKey: true,
       required: true,
     },
-    readBy: {
-      type: Sequelize.ARRAY(Sequelize.STRING),
-      defaultValue: [],
-    },
   });
 
   return Post;

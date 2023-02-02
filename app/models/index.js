@@ -21,14 +21,13 @@ db.sequelize = sequelize;
 
 db.posts = require("./post.model.js")(sequelize, Sequelize);
 db.users = require("./user.model.js")(sequelize, Sequelize);
+db.users_posts = require("./users_posts.model.js")(sequelize, Sequelize);
 
-db.posts.belongsTo(db.users, {
-  foreignKey: "userId",
-  as: "user",
+db.posts.belongsToMany(db.users, {
+  through: db.users_posts,
 });
-db.users.hasMany(db.posts, {
-  foreignKey: "userId",
-  as: "posts",
+db.users.belongsToMany(db.posts, {
+  through: db.users_posts,
 });
 
 module.exports = db;
