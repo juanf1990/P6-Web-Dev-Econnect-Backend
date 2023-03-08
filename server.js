@@ -6,7 +6,8 @@ const path = require("path");
 const app = express();
 
 var corsOptions = {
-  origin: "http://localhost:3000",
+  origin:
+    "http://localhost:3000" || "https://econnect-frontend-e539.vercel.app",
 };
 
 app.use("/images", express.static(path.join(__dirname, "images")));
