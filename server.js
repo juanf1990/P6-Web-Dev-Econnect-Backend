@@ -7,7 +7,9 @@ const app = express();
 
 var corsOptions = {
   origin:
-    "http://localhost:3000" || "https://econnect-frontend-e539.vercel.app",
+    "http://localhost:3000" ||
+    "https://econnect-frontend-e539.vercel.app" ||
+    "https://testbackend-production.up.railway.app",
 };
 
 app.use("/images", express.static(path.join(__dirname, "images")));
