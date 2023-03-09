@@ -5,12 +5,12 @@ const path = require("path");
 
 const app = express();
 
-var corsOptions = {
-  origin:
-    "http://localhost:3000" ||
-    "https://econnect-frontend-e539.vercel.app" ||
-    "https://testbackend-production.up.railway.app",
-};
+// var corsOptions = {
+//   origin:
+//     "http://localhost:3000" ||
+//     "https://econnect-frontend-e539.vercel.app" ||
+//     "https://testbackend-production.up.railway.app",
+// };
 
 // app.use(function (req, res, next) {
 //   res.header(
